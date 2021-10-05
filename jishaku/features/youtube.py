@@ -11,9 +11,9 @@ The jishaku youtube-dl command.
 
 """
 
-import discord
+import nextcord
 import youtube_dl
-from discord.ext import commands
+from nextcord.ext import commands
 
 from jishaku.features.baseclass import Feature
 from jishaku.features.voice import VoiceFeature
@@ -25,7 +25,7 @@ BASIC_OPTS = {
 }
 
 
-class BasicYouTubeDLSource(discord.FFmpegPCMAudio):
+class BasicYouTubeDLSource(nextcord.FFmpegPCMAudio):
     """
     Basic audio source for youtube_dl-compatible URLs.
     """
@@ -61,5 +61,5 @@ class YouTubeFeature(Feature):
         # remove embed maskers if present
         url = url.lstrip("<").rstrip(">")
 
-        voice.play(discord.PCMVolumeTransformer(BasicYouTubeDLSource(url)))
+        voice.play(nextcord.PCMVolumeTransformer(BasicYouTubeDLSource(url)))
         await ctx.send(f"Playing in {voice.channel.name}.")
