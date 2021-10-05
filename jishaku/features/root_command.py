@@ -15,8 +15,8 @@ import math
 import sys
 import typing
 
-import discord
-from discord.ext import commands
+import nextcord
+from nextcord.ext import commands
 
 from jishaku.features.baseclass import Feature
 from jishaku.flags import Flags
@@ -63,7 +63,7 @@ class RootCommand(Feature):
         """
 
         summary = [
-            f"Jishaku v{package_version('jishaku')}, discord.py `{package_version('discord.py')}`, "
+            f"Jishaku v{package_version('jishaku')}, nextcord.py `{package_version('nextcord.py')}`, "
             f"`Python {sys.version}` on `{sys.platform}`".replace("\n", ""),
             f"Module was loaded <t:{self.load_time.timestamp():.0f}:R>, "
             f"cog was loaded <t:{self.start_time.timestamp():.0f}:R>.",
@@ -104,7 +104,7 @@ class RootCommand(Feature):
         cache_summary = f"{len(self.bot.guilds)} guild(s) and {len(self.bot.users)} user(s)"
 
         # Show shard settings to summary
-        if isinstance(self.bot, discord.AutoShardedClient):
+        if isinstance(self.bot, nextcord.AutoShardedClient):
             if len(self.bot.shards) > 20:
                 summary.append(
                     f"This bot is automatically sharded ({len(self.bot.shards)} shards of {self.bot.shard_count})"
@@ -130,7 +130,7 @@ class RootCommand(Feature):
         else:
             message_cache = "Message cache is disabled"
 
-        if discord.version_info >= (1, 5, 0):
+        if nextcord.version_info >= (1, 5, 0):
             presence_intent = f"presence intent is {'enabled' if self.bot.intents.presences else 'disabled'}"
             members_intent = f"members intent is {'enabled' if self.bot.intents.members else 'disabled'}"
 
@@ -218,7 +218,7 @@ class RootCommand(Feature):
         if index == -1:
             task = self.tasks.pop()
         else:
-            task = discord.utils.get(self.tasks, index=index)
+            task = nextcord.utils.get(self.tasks, index=index)
             if task:
                 self.tasks.remove(task)
             else:
